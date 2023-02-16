@@ -17,6 +17,7 @@ export const RequestLocation = (): any => {
           onChange={() => setChecked(!checked)}
           checked={checked}
         ></input>
+        You have read the agreements for {location.name}
       </label>
       <button disabled={!checked}>Request Location</button>
     </div>
