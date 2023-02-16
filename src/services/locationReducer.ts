@@ -1,24 +1,28 @@
 import { useReducer } from "react";
+import { Location } from "../models/Location";
 
 function locationReducer(state: any, action: any) {
-  // function updateFavorite(favoriteValue) {
-  //   return state.speakerList.map((item, index) => {
-  //     if (item.firstName === action.id) {
-  //       return { ...item, favorite: favoriteValue };
-  //     }
-  //     return item;
-  //   });
-  // }
+  function updateIsActive(activeValue: boolean) {
+    return state.allLocations.map((location: Location, index: number) => {
+      if (location.id === action.id) {
+        return { ...location, isActive: activeValue };
+      }
+      return location;
+    });
+  }
   switch (action.type) {
     case "setLocation": {
       return { ...state, location: action.data, isLoading: false };
     }
-    // case "favorite": {
-    //   return { ...state, speakerList: updateFavorite(true) };
-    // }
-    // case "unfavorite": {
-    //   return { ...state, speakerList: updateFavorite(false) };
-    // }
+    case "setAllLocations": {
+      return { ...state, locations: action.data, isLoading: false};
+    }
+    case "deactivate": {
+      return { ...state, locations: updateIsActive(true) };
+    }
+    case "activate": {
+      return { ...state, locations: updateIsActive(false) };
+    }
     default:
       return state;
   }
